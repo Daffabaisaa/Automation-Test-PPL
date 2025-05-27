@@ -1,12 +1,16 @@
 package stepdefs;
 
 import io.cucumber.java.en.*;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 
 
 public class HelloSteps {
 
     @Given("saya punya program hello")
     public void saya_punya_program_hello() {
+        WebDriver driver = new EdgeDriver();
+        driver.get("http://ptbsp.ddns.net:5081/");
         System.out.println("Program hello disiapkan");
     }
 
