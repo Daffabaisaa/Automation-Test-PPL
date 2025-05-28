@@ -17,17 +17,22 @@ public class LoginSteps {
     public void user_sudah_membuka_web_browser() {
         WebDriverManager.edgedriver().setup();
         driver = new EdgeDriver();
-        loginPage = new LoginPage(driver);
     }
 
     @And("User berada pada halaman login aplikasi Zaidan Educare School")
     public void user_berada_pada_halaman_login_aplikasi() {
         driver.get("http://ptbsp.ddns.net:6882/");
+        loginPage = new LoginPage(driver);
     }
 
     @When("user memasukkan username {string} dan password {string}")
     public void user_memasukkan_username_dan_password(String username, String password) {
         loginPage.login(username, password);
+    }
+
+    @And("user menekan tombol login")
+    public void user_menekan_tombol_login() {
+        // sudah dilakukan di method login()
     }
 
     @Then("User dapat melihat pesan {string}")
