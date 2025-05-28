@@ -10,7 +10,7 @@ public class HelloSteps {
     @Given("saya punya program hello")
     public void saya_punya_program_hello() {
         WebDriver driver = new EdgeDriver();
-        driver.get("http://ptbsp.ddns.net:5081/");
+        driver.get("http://ptbsp.ddns.net:6882/");
         System.out.println("Program hello disiapkan");
     }
 
