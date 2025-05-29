@@ -1,9 +1,10 @@
 package stepdefs;
 
+import actions.HomePageActions;
+import helper.Helper;
 import io.cucumber.java.en.*;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.edge.EdgeDriver;
 import pages.LoginPage;
 
 import static org.junit.Assert.assertTrue;
@@ -12,11 +13,11 @@ public class LoginSteps {
 
     WebDriver driver;
     LoginPage loginPage;
+    HomePageActions homePageActions = new HomePageActions();
 
     @Given("User sudah membuka web browser")
     public void user_sudah_membuka_web_browser() {
-        WebDriverManager.edgedriver().setup();
-        driver = new EdgeDriver();
+        driver = Helper.getInstance().getDriver();
     }
 
     @And("User berada pada halaman login aplikasi Zaidan Educare School")
@@ -35,10 +36,30 @@ public class LoginSteps {
         // sudah dilakukan di method login()
     }
 
+    @And("user dapat melihat sidebar bendahara")
+    public void user_dapat_melihat_sidebar_bendahara() {
+        homePageActions = new HomePageActions();
+        String[] expectedSidebarItems = {
+            "Dasbor",
+            "Tagihan Siswa",
+            "Transaksi Penerimaan Dana",
+            "Pengaturan Notifikasi",
+            "Status Pembayaran",
+            "Rekapitulasi",
+            "Progres Transaksi Penerimaan Dana"
+        };
+        Assert.assertArrayEquals(expectedSidebarItems, homePageActions.getSidebarItems().toArray());
+    }
+
     @Then("User dapat melihat pesan {string}")
     public void user_dapat_melihat_pesan(String expectedMessage) {
         String actual = loginPage.getErrorMessage();
         assertTrue(actual.toLowerCase().contains(expectedMessage.toLowerCase()));
         driver.quit();
+    }
+
+    @Then("user diarahkan ke halaman dashboard")
+    public void user_diarahkan_ke_halaman_dashboard() {
+        Assert.assertTrue(homePageActions.getHomePageText().contains("Dasbor - Bendahara"));
     }
 }

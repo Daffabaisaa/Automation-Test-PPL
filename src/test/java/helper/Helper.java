@@ -2,6 +2,7 @@ package helper;
 
 import java.time.Duration;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -14,6 +15,7 @@ public class Helper {
     public final static int TIMEOUT = 10;
 
     private Helper() {
+        WebDriverManager.edgedriver().setup();
         EdgeOptions options = new EdgeOptions();
         driver = new EdgeDriver(options);
 
